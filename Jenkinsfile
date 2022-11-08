@@ -8,7 +8,7 @@ pipeline{
                 sh 'echo "Build Triggered from webhook"'
             }
         }
-        stage('Install Chrom Browser'){
+        stage('Install Chrome Browser'){
             steps{
                 sh '''#!/bin/bash
                     google-chrome --version
@@ -20,7 +20,25 @@ pipeline{
                     sudo apt install google-chrome-stable -y
                     google-chrome --version
                     else
-                    echo "Chrome Already Installed"
+                    echo "Chrome Already Installed Trying to upgrade to the latest Version !!"
+                    sudo apt-get --only-upgrade install google-chrome-stable -y
+                    fi
+                    
+                '''
+            }
+        }
+        stage('Install Chrome driver'){
+            steps{
+                sh '''#!/bin/bash
+                    chromedriver --version
+                    if [ "$?" = 1 ]
+                    then
+                    version=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE")
+                    wget -qP /tmp/ "https://chromedriver.storage.googleapis.com/${version}/chromedriver_linux64.zip"
+                    sudo unzip -o /tmp/chromedriver_linux64.zip -d /usr/bin
+                    chromedriver --version
+                    else
+                    echo "ChromeDriver Already Installed"
                     fi
                     
                 '''
