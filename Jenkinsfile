@@ -33,6 +33,7 @@ pipeline{
                     chromedriver --version
                     if [ "$?" -ne 0 ]
                     then
+                    sudo apt install zip -y
                     version=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE")
                     wget -qP /tmp/ "https://chromedriver.storage.googleapis.com/${version}/chromedriver_linux64.zip"
                     sudo unzip -o /tmp/chromedriver_linux64.zip -d /usr/bin
