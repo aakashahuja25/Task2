@@ -10,7 +10,7 @@ pipeline{
         }
         stage('Install Chrom Browser'){
             steps{
-                sh """
+                sh '''#!/bin/bash
                     google-chrome --version
                     if [ "$?" = 1 ]
                     then
@@ -23,7 +23,7 @@ pipeline{
                     echo "Chrome Already Installed"
                     fi
                     
-                """
+                '''
             }
         }
     }
