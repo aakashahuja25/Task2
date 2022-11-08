@@ -12,7 +12,7 @@ pipeline{
             steps{
                 sh '''#!/bin/bash
                     google-chrome --version
-                    if [ "$?" = 1 ]
+                    if [ "$?" -ne 0 ]
                     then
                     wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
                     sudo add-apt-repository "deb http://dl.google.com/linux/chrome/deb/ stable main"
@@ -31,7 +31,7 @@ pipeline{
             steps{
                 sh '''#!/bin/bash
                     chromedriver --version
-                    if [ "$?" = 1 ]
+                    if [ "$?" -ne 0 ]
                     then
                     version=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE")
                     wget -qP /tmp/ "https://chromedriver.storage.googleapis.com/${version}/chromedriver_linux64.zip"
